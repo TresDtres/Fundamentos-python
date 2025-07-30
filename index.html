@@ -43,23 +43,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curso Interactivo de Python</title>
-    <!-- Importamos JupyterLite -->
+    <!-- Importamos JupyterLite con versiones actualizadas -->
     <script type="importmap">
         {
             "imports": {
-                "@jupyterlite/javascript-kernel-plugin": "https://unpkg.com/@jupyterlite/javascript-kernel-plugin@0.3.0/lib/index.js",
+                "@jupyterlite/javascript-kernel-plugin": "https://unpkg.com/@jupyterlite/javascript-kernel-plugin@0.4.0/lib/index.js",
                 "@jupyterlite/pyodide-kernel": "https://unpkg.com/@jupyterlite/pyodide-kernel@0.4.0/lib/index.js"
             }
         }
     </script>
     <script type="module">
-        import { JupyterLiteServer } from 'https://unpkg.com/@jupyterlite/server@0.2.0/lib/index.js';
+        import { JupyterLiteServer } from 'https://unpkg.com/@jupyterlite/server@0.4.0/lib/index.js';
         import { PyodideKernel } from '@jupyterlite/pyodide-kernel';
         const server = new JupyterLiteServer();
         server.registerPlugin(new PyodideKernel());
         server.start();
     </script>
-    <link rel="stylesheet" href="https://unpkg.com/@jupyterlite/app@0.2.0/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/@jupyterlite/app@0.4.0/style.css">
     <style>
         :root {
             --bg-color: #f9f9f9;
