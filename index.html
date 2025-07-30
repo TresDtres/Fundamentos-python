@@ -47,19 +47,23 @@
     <script type="importmap">
         {
             "imports": {
-                "@jupyterlite/javascript-kernel-plugin": "https://unpkg.com/@jupyterlite/javascript-kernel-plugin@0.4.0/lib/index.js",
-                "@jupyterlite/pyodide-kernel": "https://unpkg.com/@jupyterlite/pyodide-kernel@0.4.0/lib/index.js"
+                "@jupyterlite/javascript-kernel-plugin": "https://unpkg.com/@jupyterlite/javascript-kernel-plugin@0.5.0/lib/index.js",
+                "@jupyterlite/pyodide-kernel": "https://unpkg.com/@jupyterlite/pyodide-kernel@0.5.0/lib/index.js"
             }
         }
     </script>
     <script type="module">
-        import { JupyterLiteServer } from 'https://unpkg.com/@jupyterlite/server@0.4.0/lib/index.js';
+        import { JupyterLiteServer } from 'https://unpkg.com/@jupyterlite/server@0.5.0/lib/index.js';
         import { PyodideKernel } from '@jupyterlite/pyodide-kernel';
         const server = new JupyterLiteServer();
         server.registerPlugin(new PyodideKernel());
-        server.start();
+        server.start().then(() => {
+            console.log('JupyterLite cargado correctamente');
+        }).catch(err => {
+            console.error('Error al cargar JupyterLite:', err);
+        });
     </script>
-    <link rel="stylesheet" href="https://unpkg.com/@jupyterlite/app@0.4.0/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/@jupyterlite/app@0.5.0/style.css" crossorigin="anonymous">
     <style>
         :root {
             --bg-color: #f9f9f9;
@@ -205,7 +209,8 @@
                 src="https://jupyterlite.github.io/demo/repl/index.html?kernel=python&toolbar=1&code=%23%20Tu%20primer%20programa%20en%20Python%0Aprint(%22%C2%A1Hola%2C%20mundo!%22)%0A%0A%23%20Prueba%20cambiar%20el%20mensaje%0Aprint(%22%C2%A1Bienvenido%20al%20curso%20de%20Python!%22)"
                 width="100%"
                 height="500px"
-                frameborder="0">
+                frameborder="0"
+                sandbox="allow-same-origin allow-scripts">
             </iframe>
         </div>
         <p><strong>Mini reto:</strong> Modifica el código para que imprima tu nombre en lugar de "mundo". Por ejemplo, si te llamas Ana, debería mostrar "¡Hola, Ana!".</p>
