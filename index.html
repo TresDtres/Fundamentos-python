@@ -1,0 +1,218 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Interactivo de Python</title>
+    <!-- Importamos JupyterLite -->
+    <script type="importmap">
+        {
+            "imports": {
+                "@jupyterlite/javascript-kernel-plugin": "https://unpkg.com/@jupyterlite/javascript-kernel-plugin@0.3.0/lib/index.js",
+                "@jupyterlite/pyodide-kernel": "https://unpkg.com/@jupyterlite/pyodide-kernel@0.4.0/lib/index.js"
+            }
+        }
+    </script>
+    <script type="module">
+        import { JupyterLiteServer } from 'https://unpkg.com/@jupyterlite/server@0.2.0/lib/index.js';
+        import { PyodideKernel } from '@jupyterlite/pyodide-kernel';
+        const server = new JupyterLiteServer();
+        server.registerPlugin(new PyodideKernel());
+        server.start();
+    </script>
+    <link rel="stylesheet" href="https://unpkg.com/@jupyterlite/app@0.2.0/style.css">
+    <style>
+        :root {
+            --bg-color: #f9f9f9;
+            --text-color: #333;
+            --cell-bg-color: white;
+            --cell-border-color: #e0e0e0;
+            --button-bg-color: #2c8a30;
+            --button-hover-bg-color: #45a049;
+            --hint-bg-color: #e8f4f8;
+        }
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --cell-bg-color: #1e1e1e;
+            --cell-border-color: #333;
+            --button-bg-color: #3e8e41;
+            --button-hover-bg-color: #50b154;
+            --hint-bg-color: #2c2c2c;
+        }
+        [data-theme="space"] {
+            --bg-color: #0a0a23;
+            --text-color: #d0d0d5;
+            --cell-bg-color: #1b1b38;
+            --cell-border-color: #4b4b6b;
+            --button-bg-color: #4b0082;
+            --button-hover-bg-color: #6a0dad;
+            --hint-bg-color: #2a2a4a;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        h1, h2, h3 {
+            color: var(--text-color);
+        }
+        .intro, .lesson, .index {
+            background-color: var(--cell-bg-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid var(--cell-border-color);
+        }
+        .theme-buttons button {
+            background-color: var(--button-bg-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .theme-buttons button:hover {
+            background-color: var(--button-hover-bg-color);
+        }
+        .hint-button {
+            background-color: var(--button-bg-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .hint-button:hover {
+            background-color: var(--button-hover-bg-color);
+        }
+        .hint {
+            display: none;
+            background-color: var(--hint-bg-color);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .jupyter-lite iframe {
+            width: 100%;
+            height: 500px;
+            border: 1px solid var(--cell-border-color);
+            border-radius: 8px;
+        }
+        .index ul {
+            list-style: none;
+            padding: 0;
+        }
+        .index li {
+            margin: 10px 0;
+        }
+        .index a {
+            color: var(--button-bg-color);
+            text-decoration: none;
+        }
+        .index a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        }
+        window.onload = function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            setTheme(savedTheme);
+        };
+        function showHint() {
+            document.getElementById('hint').style.display = 'block';
+        }
+    </script>
+</head>
+<body>
+    <h1>¡Bienvenid@ a tu Curso Interactivo de Python!</h1>
+    <div class="intro">
+        <p>Este curso te enseñará a programar en Python desde cero, con explicaciones claras y prácticas divertidas. ¡No necesitas saber nada de programación! Usa el cuaderno interactivo para escribir y probar código al instante.</p>
+        <div class="theme-buttons">
+            <button onclick="setTheme('light')">Tema Claro</button>
+            <button onclick="setTheme('dark')">Tema Oscuro</button>
+            <button onclick="setTheme('space')">Tema Espacial</button>
+        </div>
+    </div>
+    <div class="index">
+        <h2>Índice de Lecciones</h2>
+        <ul>
+            <li><a href="#leccion1">Lección 1: Introducción a Python y primeros pasos</a></li>
+            <li>Lección 2: Variables y tipos de datos (próximamente)</li>
+            <li>Lección 3: Operaciones básicas (próximamente)</li>
+            <li>Lección 4: Entradas del usuario (próximamente)</li>
+            <li>Lección 5: Condiciones (próximamente)</li>
+            <li>Lección 6: Listas (próximamente)</li>
+            <li>Lección 7: Bucles for (próximamente)</li>
+            <li>Lección 8: Bucles while (próximamente)</li>
+            <li>Lección 9: Funciones básicas (próximamente)</li>
+            <li>Lección 10: Proyecto final (próximamente)</li>
+        </ul>
+    </div>
+    <div class="lesson" id="leccion1">
+        <h2>Lección 1: Introducción a Python y primeros pasos</h2>
+        <p>¡Bienvenido al mundo de la programación! Programar es como darle instrucciones a una computadora para que haga cosas por ti, como si fuera una receta de cocina. En esta lección, aprenderás a usar Python para mostrar mensajes en la pantalla con <code>print</code>.</p>
+        <p><strong>Ejemplo:</strong> Vamos a hacer que la computadora diga "¡Hola, mundo!". Prueba el siguiente código en el cuaderno de abajo:</p>
+        <div class="jupyter-lite">
+            <iframe
+                src="https://jupyterlite.github.io/demo/repl/index.html?kernel=python&toolbar=1&code=%23%20Tu%20primer%20programa%20en%20Python%0Aprint(%22%C2%A1Hola%2C%20mundo!%22)%0A%0A%23%20Prueba%20cambiar%20el%20mensaje%0Aprint(%22%C2%A1Bienvenido%20al%20curso%20de%20Python!%22)"
+                width="100%"
+                height="500px"
+                frameborder="0">
+            </iframe>
+        </div>
+        <p><strong>Mini reto:</strong> Modifica el código para que imprima tu nombre en lugar de "mundo". Por ejemplo, si te llamas Ana, debería mostrar "¡Hola, Ana!".</p>
+        <button class="hint-button" onclick="showHint()">Mostrar Pista</button>
+        <div id="hint" class="hint">
+            <p><strong>Pista:</strong> Cambia el texto dentro de las comillas en <code>print("¡Hola, mundo!")</code>. Por ejemplo, escribe <code>print("¡Hola, Ana!")</code> si tu nombre es Ana.</p>
+        </div>
+    </div>
+</body>
+</html>
