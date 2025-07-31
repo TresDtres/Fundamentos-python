@@ -32,45 +32,43 @@
     <nav class="top-nav">
         <a href="#leccion-1">1. Variables</a>
         <a href="#leccion-4">4. Listas</a>
-        <a href="#leccion-5">5. Condicionales</a>
-        <a href="#leccion-6">6. Bucles</a>
         <a href="#leccion-7">7. Funciones</a>
         <a href="#leccion-8">8. Diccionarios</a>
+        <a href="#leccion-9">9. Combinar</a>
     </nav>
     
     <div class="cell"><h1>Mini curso: Fundamentos de Programación</h1></div>
     <div id="loading-message"><p>⏳ Cargando el entorno interactivo de Python...</p></div>
 
     <div id="content" style="display:none;">
-        <div class="cell"><h2 id="leccion-1">1-3. Variables, Tipos y Operadores</h2><p>Estas lecciones cubren cómo crear variables, los tipos de datos básicos y cómo operar con ellos.</p></div>
-        <div class="cell"><h2 id="leccion-4">4. Listas</h2><p>Las listas son colecciones ordenadas de datos que se crean con <code>[]</code>.</p></div>
-        <div class="cell"><h2 id="leccion-5">5. Condicionales (`if`, `else`)</h2><p>Permiten que el código tome decisiones y siga un camino u otro.</p></div>
-        <div class="cell"><h2 id="leccion-6">6. Bucles (`for` y `while`)</h2><p>Sirven para repetir tareas sobre una lista o mientras se cumpla una condición.</p></div>
+        <div class="cell"><h2 id="leccion-1">1-6. Fundamentos</h2><p>Estas lecciones cubren los tipos de datos, operadores, condicionales y bucles.</p></div>
         <div class="cell"><h2 id="leccion-7">7. Funciones (`def`)</h2><p>Permiten crear bloques de código reutilizables para no repetirnos.</p></div>
+        <div class="cell"><h2 id="leccion-8">8. Diccionarios</h2><p>Son colecciones para guardar datos con pares <code>clave: valor</code>. Se crean con <code>{}</code>.</p></div>
         
         <!-- INICIO DE LA NUEVA LECCIÓN -->
         <div class="cell">
-            <h2 id="leccion-8">8. Diccionarios: El Archivador Etiquetado</h2>
-            <p>Ya conoces las listas, que ordenan los datos por su posición (0, 1, 2...). Pero a veces es mucho más útil poder acceder a los datos por una "etiqueta" o un nombre descriptivo.</p>
-            <p>Un <b>diccionario</b> es una colección de datos que no se guarda en orden, sino como pares de <code>clave: valor</code>. ¡Como un diccionario de verdad!</p>
-            <p>Se crean con llaves <code>{}</code>.</p>
+            <h2 id="leccion-9">9. ¡Combinando Listas y Diccionarios!</h2>
+            <p>Este es uno de los conceptos más importantes. En programas reales, los datos rara vez son simples. A menudo, tendrás una <b>lista de diccionarios</b>.</p>
+            <p>Imagina una lista de usuarios. Cada usuario es un diccionario con sus propios datos.</p>
         </div>
         <div class="cell code-cell">
-            <textarea id="code-1"># Creando un diccionario para guardar información sobre una persona
-persona = {
-    "nombre": "Ana",
-    "edad": 30,
-    "ciudad": "Madrid",
-    "tiene_mascota": True
-}
+            <textarea id="code-1"># Una lista donde cada elemento es un diccionario
+usuarios = [
+    { "id": 1, "nombre": "Ana", "edad": 28 },
+    { "id": 2, "nombre": "Carlos", "edad": 45 },
+    { "id": 3, "nombre": "Beatriz", "edad": 22 }
+]
 
-# Accedemos a un valor usando su clave (la etiqueta)
-print("Nombre:", persona["nombre"])
-print("Edad:", persona["edad"])
+# Acceder al nombre del segundo usuario (índice 1)
+nombre_carlos = usuarios[1]["nombre"]
+print("El segundo usuario es:", nombre_carlos)
 
-# Añadir un nuevo par clave:valor es muy fácil
-persona["profesion"] = "Ingeniera"
-print("Profesión:", persona["profesion"])
+# Recorrer la lista para encontrar a todos los mayores de 25
+print("\nBuscando usuarios mayores de 25 años:")
+for usuario in usuarios:
+    # 'usuario' es un diccionario en cada repetición
+    if usuario["edad"] > 25:
+        print("-", usuario["nombre"], "tiene", usuario["edad"], "años.")
 </textarea>
             <button class="run-button" onclick="runCode(1)">▶️ Ejecutar</button>
             <div class="output" id="output-1"></div>
@@ -78,28 +76,37 @@ print("Profesión:", persona["profesion"])
         <div class="cell explanation-cell">
             <h3>🔍 Desglose del Código</h3>
             <ol>
-                <li><code><b>persona = { ... }</b></code>: Usamos llaves <code>{}</code> para crear el diccionario.</li>
-                <li><code><b>"nombre": "Ana"</b></code>: Este es un par <code>clave: valor</code>. La clave es el texto <code>"nombre"</code> (¡siempre es un texto único!) y el valor asociado es <code>"Ana"</code>. Las claves y los valores pueden ser de casi cualquier tipo.</li>
-                <li><code><b>persona["nombre"]</b></code>: Así accedemos a un valor. En lugar de un número de índice como en las listas, usamos la clave entre corchetes. ¡Es mucho más claro saber que estamos pidiendo el <code>"nombre"</code> y no el elemento <code>[0]</code>!</li>
-                <li><code><b>persona["profesion"] = "Ingeniera"</b></code>: Si la clave "profesion" no existe, Python la crea y le asigna el valor. Si ya existiera, simplemente actualizaría su valor.</li>
+                <li><code><b>usuarios = [ ... ]</b></code>: Creamos una lista normal con corchetes <code>[]</code>. La única diferencia es que cada elemento que ponemos dentro es un diccionario completo <code>{...}</code>.</li>
+                <li><code><b>usuarios[1]["nombre"]</b></code>: ¡Esta es la sintaxis clave! La desglosamos de izquierda a derecha:
+                    <ul>
+                        <li><code>usuarios[1]</code>: Primero, accedemos al segundo elemento de la lista. Esto nos devuelve el diccionario entero: <code>{ "id": 2, "nombre": "Carlos", "edad": 45 }</code>.</li>
+                        <li><code><b>...["nombre"]</b></code>: Sobre ese diccionario que hemos obtenido, ahora accedemos al valor asociado a la clave <code>"nombre"</code>. El resultado es "Carlos".</li>
+                    </ul>
+                </li>
+                <li><code><b>for usuario in usuarios:</b></code>: Al recorrer la lista, la variable temporal <code>usuario</code> contendrá un diccionario completo en cada pasada. Por eso, dentro del bucle, podemos usar <code>usuario["edad"]</code> y <code>usuario["nombre"]</code> para acceder a sus datos.</li>
             </ol>
         </div>
         <div class="cell">
-            <h3>🎯 Mini reto: Tu Propio Perfil</h3>
-            <p>Crea un diccionario llamado <code>mi_perfil</code>. Añade las siguientes claves con tus propios datos (o datos inventados): <code>"nombre"</code>, <code>"año_nacimiento"</code>, <code>"ciudad_residencia"</code> y <code>"comida_favorita"</code>.</p>
-            <p>Después, imprime una frase que use al menos dos de esos valores, como por ejemplo: "Hola, soy [nombre] y mi comida favorita son las [comida_favorita]".</p>
+            <h3>🎯 Mini reto: Inventario de una Tienda</h3>
+            <p>Has sido contratado para gestionar el inventario de una tienda de videojuegos. Crea una lista de diccionarios llamada <code>inventario</code>.</p>
+            <p>Cada diccionario debe representar un producto y tener las claves: <code>"titulo"</code> (texto), <code>"precio"</code> (número) y <code>"stock"</code> (número de unidades).</p>
+            <p>Luego, recorre el inventario con un bucle e imprime solo los títulos de los juegos que cuesten <b>menos de 30</b>.</p>
         </div>
         <div class="cell code-cell">
-            <textarea id="code-2"># Crea aquí tu diccionario
-mi_perfil = {
-    "nombre": "...",
-    "año_nacimiento": 0,
-    "ciudad_residencia": "...",
-    "comida_favorita": "..."
-}
+            <textarea id="code-2"># Crea tu lista de diccionarios aquí
+inventario = [
+    { "titulo": "Aventura Espacial", "precio": 49.99, "stock": 15 },
+    { "titulo": "Puzles de la Jungla", "precio": 19.95, "stock": 30 },
+    { "titulo": "Carreras Urbanas", "precio": 25.50, "stock": 5 }
+]
 
-# Accede a los datos del diccionario para imprimir la frase
-print("Hola, soy", mi_perfil["nombre"], "y mi comida favorita es", mi_perfil["comida_favorita"])
+print("Juegos en oferta (menos de 30€):")
+# Recorre el inventario con un bucle
+for juego in inventario:
+    # Dentro del bucle, comprueba el precio del juego
+    if juego["precio"] < 30:
+        # Si cumple la condición, imprime su título
+        print("-", juego["titulo"])
 </textarea>
             <button class="run-button" onclick="runCode(2)">▶️ Ejecutar</button>
             <div class="output" id="output-2"></div>
@@ -155,16 +162,11 @@ print("Hola, soy", mi_perfil["nombre"], "y mi comida favorita es", mi_perfil["co
                 outputElement.innerText = err;
             }
         }
-        // Colapsé las lecciones anteriores en el HTML, pero el JS las necesita.
-        // Hacemos un apaño rápido para que siga funcionando el guardado.
-        // En una app real, esto sería más elegante.
+        // Colapsé las lecciones anteriores en el HTML.
+        // Un pequeño hack para que el guardado de celdas antiguas no se pierda.
         function hackyInitializeOldCells() {
-            const oldCellIds = [1,2,3,4,5,6,7];
-            for(const id of oldCellIds) {
-                if(localStorage.getItem(`code-content-${id}`)) {
-                    // Simplemente nos aseguramos de que el dato existe para no perderlo
-                }
-            }
+            const oldCellIds = [1,2,3,4,5,6,7,8];
+            for(const id of oldCellIds) { if(localStorage.getItem(`code-content-${id}`)){/*noop*/} }
         }
         hackyInitializeOldCells();
         main();
