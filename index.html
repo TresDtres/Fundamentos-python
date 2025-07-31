@@ -4,40 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini Curso Python Interactivo</title>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/theme/dracula.min.css">
-
     <style>
-        :root { 
-            --bg-color: #f9f9f9; --text-color: #333; --cell-bg-color: white; --cell-border-color: #e0e0e0; 
-            --header-border-color: #eaecef; --code-bg-color: #eee; --output-bg-color: #f0f0f0; 
-            --output-border-color: #ddd; --button-bg-color: #2c8a30; --button-hover-bg-color: #45a049; 
-            --explanation-bg: #f8f9fa; --explanation-border: #4CAF50;
-            --nav-shadow-color: rgba(0, 0, 0, 0.08);
-        }
-        [data-theme="dark"] { 
-            --bg-color: #121212; --text-color: #e0e0e0; --cell-bg-color: #1e1e1e; --cell-border-color: #333; 
-            --header-border-color: #333; --code-bg-color: #333; --output-bg-color: #2a2a2a; 
-            --output-border-color: #444; --button-bg-color: #3e8e41; --button-hover-bg-color: #50b154; 
-            --explanation-bg: #2c2c2c;
-            --nav-shadow-color: rgba(0, 0, 0, 0.2);
-        }
-        [data-theme="retro"] { 
-            --bg-color: #000000; --text-color: #00ff00; --cell-bg-color: #0d0d0d; --cell-border-color: #00ff00; 
-            --header-border-color: #00ff00; --code-bg-color: #1a1a1a; --output-bg-color: #111; 
-            --output-border-color: #008f00; --button-bg-color: #008f00; --button-hover-bg-color: #00ff00; 
-            --explanation-bg: #032d03;
-            --nav-shadow-color: rgba(0, 255, 0, 0.15);
-        }
-        
+        :root { --bg-color: #f9f9f9; --text-color: #333; --cell-bg-color: white; --cell-border-color: #e0e0e0; --header-border-color: #eaecef; --code-bg-color: #eee; --output-bg-color: #f0f0f0; --output-border-color: #ddd; --button-bg-color: #2c8a30; --button-hover-bg-color: #45a049; --explanation-bg: #f8f9fa; --explanation-border: #4CAF50; --nav-shadow-color: rgba(0, 0, 0, 0.08); }
+        [data-theme="dark"] { --bg-color: #121212; --text-color: #e0e0e0; --cell-bg-color: #1e1e1e; --cell-border-color: #333; --header-border-color: #333; --code-bg-color: #333; --output-bg-color: #2a2a2a; --output-border-color: #444; --button-bg-color: #3e8e41; --button-hover-bg-color: #50b154; --explanation-bg: #2c2c2c; --nav-shadow-color: rgba(0, 0, 0, 0.2); }
+        [data-theme="retro"] { --bg-color: #000000; --text-color: #00ff00; --cell-bg-color: #0d0d0d; --cell-border-color: #00ff00; --header-border-color: #00ff00; --code-bg-color: #1a1a1a; --output-bg-color: #111; --output-border-color: #008f00; --button-bg-color: #008f00; --button-hover-bg-color: #00ff00; --explanation-bg: #032d03; --nav-shadow-color: rgba(0, 255, 0, 0.15); }
         html { scroll-behavior: smooth; scroll-padding-top: 100px; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: var(--text-color); background-color: var(--bg-color); max-width: 800px; margin: 20px auto; padding: 0 15px; }
-        
-        .top-nav { position: sticky; top: 10px; background-color: var(--cell-bg-color); padding: 10px; border-radius: 8px; margin-bottom: 20px; z-index: 100; display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--cell-border-color); box-shadow: 0 2px 5px var(--nav-shadow-color);
-                  box-shadow: 0 2px 5px var(--nav-shadow-color); }
+        .top-nav { position: sticky; top: 10px; background-color: var(--cell-bg-color); padding: 10px; border-radius: 8px; margin-bottom: 20px; z-index: 100; display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--cell-border-color); box-shadow: 0 2px 5px var(--nav-shadow-color); }
         .top-nav a { flex-shrink: 0; text-decoration: none; color: var(--text-color); background-color: var(--code-bg-color); padding: 5px 12px; border-radius: 5px; margin-right: 10px; }
-
         .cell { background-color: var(--cell-bg-color); border: 1px solid var(--cell-border-color); border-radius: 8px; margin-bottom: 20px; padding: 15px; }
         .explanation-cell { background-color: var(--explanation-bg); border-left: 4px solid var(--explanation-border); padding: 10px 20px; }
         h1, h2, h3 { border-bottom: 1px solid var(--header-border-color); padding-bottom: 0.3em; }
@@ -46,7 +22,6 @@
         code { background-color: var(--code-bg-color); color: var(--text-color); padding: 2px 4px; border-radius: 3px; }
         #loading-message { text-align: center; padding: 20px; font-style: italic; }
     </style>
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/python/python.min.js"></script>
     <script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
@@ -55,82 +30,62 @@
     <nav class="top-nav">
         <a href="#leccion-1">1. Variables</a> <a href="#leccion-2">2. Tipos</a> <a href="#leccion-3">3. Operadores</a> <a href="#leccion-4">4. Listas</a> <a href="#leccion-5">5. Condicionales</a> <a href="#leccion-6">6. Bucles</a> <a href="#leccion-7">7. Funciones</a> <a href="#leccion-8">8. Diccionarios</a> <a href="#leccion-9">9. Combinar</a> <a href="#leccion-10">10. Input</a> <a href="#leccion-11">11. Proyecto</a>
     </nav>
-    
     <div class="cell"><h1>Mini curso: Fundamentos de Programación</h1></div>
     <div id="loading-message"><p>⏳ Cargando el entorno interactivo de Python...</p></div>
-
     <div id="content" style="display:none;">
         <div class="cell" id="leccion-1"><h2>1. Variables y `print()`</h2><p>Una <b>variable</b> es un nombre para guardar un valor. La función <code>print()</code> muestra valores en pantalla.</p></div>
         <div class="cell code-cell"><textarea id="code-1">nombre_curso = "Fundamentos de Python"
 print(nombre_curso)</textarea><button class="run-button" onclick="runCode(1)">▶️ Ejecutar</button><div class="output" id="output-1"></div></div>
-
         <div class="cell" id="leccion-2"><h2>2. Tipos de Datos</h2><p>Los datos pueden ser de tipo <code>str</code>, <code>int</code>, <code>float</code> o <code>bool</code>.</p></div>
-        <div class="cell code-cell"><textarea id="code-2">print(type("texto"))
-print(type(100))</textarea><button class="run-button" onclick="runCode(2)">▶️ Ejecutar</button><div class="output" id="output-2"></div></div>
-        
+        <div class="cell code-cell"><textarea id="code-2">print(type("texto")); print(type(100));</textarea><button class="run-button" onclick="runCode(2)">▶️ Ejecutar</button><div class="output" id="output-2"></div></div>
         <div class="cell" id="leccion-3"><h2>3. Operadores</h2><p>Permiten hacer cálculos y comparaciones.</p></div>
-        <div class="cell code-cell"><textarea id="code-3">print("División entera:", 10 // 3)
-print("Resto:", 10 % 3)</textarea><button class="run-button" onclick="runCode(3)">▶️ Ejecutar</button><div class="output" id="output-3"></div></div>
-
+        <div class="cell code-cell"><textarea id="code-3">print("División entera:", 10 // 3); print("Resto:", 10 % 3)</textarea><button class="run-button" onclick="runCode(3)">▶️ Ejecutar</button><div class="output" id="output-3"></div></div>
         <div class="cell" id="leccion-4"><h2>4. Listas</h2><p>Colecciones ordenadas creadas con <code>[]</code>.</p></div>
-        <div class="cell code-cell"><textarea id="code-4">mi_lista = ["Manzanas", "Peras"]
-print(mi_lista[1])</textarea><button class="run-button" onclick="runCode(4)">▶️ Ejecutar</button><div class="output" id="output-4"></div></div>
-        
+        <div class="cell code-cell"><textarea id="code-4">mi_lista = ["Manzanas", "Peras"]; print(mi_lista[1])</textarea><button class="run-button" onclick="runCode(4)">▶️ Ejecutar</button><div class="output" id="output-4"></div></div>
         <div class="cell" id="leccion-5"><h2>5. Condicionales</h2><p>Toma de decisiones con <code>if</code>.</p></div>
         <div class="cell code-cell"><textarea id="code-5">edad = 20
 if edad >= 18:
     print("Mayor de edad.")</textarea><button class="run-button" onclick="runCode(5)">▶️ Ejecutar</button><div class="output" id="output-5"></div></div>
         <div class="cell explanation-cell"><h3>La Regla de Oro: La Indentación</h3><p>En Python, la <b>indentación</b> es obligatoria y define qué código pertenece a un bloque <code>if</code>, <code>for</code>, etc.</p></div>
-
         <div class="cell" id="leccion-6"><h2>6. Bucles</h2><p>Repetición con <code>for</code> y <code>while</code>.</p></div>
         <div class="cell code-cell"><textarea id="code-6">for fruta in ["Manzana", "Pera"]:
     print(fruta)</textarea><button class="run-button" onclick="runCode(6)">▶️ Ejecutar</button><div class="output" id="output-6"></div></div>
-
         <div class="cell" id="leccion-7"><h2>7. Funciones: Definir vs. Llamar</h2><p>Paso 1: Definir (escribir la receta). Paso 2: Llamar (cocinar la receta).</p><h3>Paso 1: Definir la Función</h3></div>
         <div class="cell code-cell"><textarea id="code-7"># DEFINICIÓN de la receta. Al ejecutar, no hace nada visible.
 def saludar(nombre):
     print("¡Hola,", nombre, "!")</textarea><button class="run-button" onclick="runCode(7)">▶️ Ejecutar</button><div class="output" id="output-7"></div></div>
-        
         <div class="cell"><h3>Paso 2: Llamar a la Función</h3><p>Ahora que Python conoce la receta, la usamos.</p></div>
         <div class="cell code-cell"><textarea id="code-8"># Esta celda fallará si no has ejecutado la anterior primero.
 saludar("Ana")
 saludar("Carlos")</textarea><button class="run-button" onclick="runCode(8)">▶️ Ejecutar</button><div class="output" id="output-8"></div></div>
-
         <div class="cell" id="leccion-8"><h2>8. Diccionarios</h2><p>Colecciones con pares <code>clave: valor</code>.</p></div>
         <div class="cell code-cell"><textarea id="code-9">persona = {"nombre": "Ana"}
 print(persona["nombre"])</textarea><button class="run-button" onclick="runCode(9)">▶️ Ejecutar</button><div class="output" id="output-9"></div></div>
-        
         <div class="cell" id="leccion-9"><h2>9. Combinar Estructuras</h2><p>Listas de diccionarios.</p></div>
         <div class="cell code-cell"><textarea id="code-10">usuarios = [{"nombre": "Ana"}]
 print(usuarios[0]["nombre"])</textarea><button class="run-button" onclick="runCode(10)">▶️ Ejecutar</button><div class="output" id="output-10"></div></div>
-
         <div class="cell" id="leccion-10"><h2>10. Input del Usuario</h2><p>Programas interactivos con <code>input()</code>.</p></div>
         <div class="cell code-cell"><textarea id="code-11"># edad = int(input("Dime tu edad: "))
 # print("Tu edad es:", edad)
 print("Ejemplo de input: pide un dato al usuario.")</textarea><button class="run-button" onclick="runCode(11)">▶️ Ejecutar</button><div class="output" id="output-11"></div></div>
-
         <div class="cell" id="leccion-11"><h2>11. Proyecto Final: Gestor de Tareas</h2><p>¡Felicidades! Has llegado a la meta de los fundamentos. Ahora vamos a unirlo TODO para crear tu primer programa completo.</p></div>
         <div class="cell code-cell"><textarea id="code-12"># Almacén de datos
 tareas = ["Aprender a programar", "Tomar un buen café"]
-
 # Herramientas (Funciones)
 def mostrar_tareas():
     print("\\n--- Tareas ---")
     for tarea in tareas:
         print("- " + tarea)
-
 def anadir_tarea():
     nueva_tarea = input("¿Qué tarea quieres añadir?: ")
     tareas.append(nueva_tarea)
     print("¡Tarea añadida!")
-
 # Motor del programa
 print("¡Bienvenido al Gestor de Tareas!")
 opcion = ""
 while opcion != "3":
     print("\\n1. Ver tareas\\n2. Añadir tarea\\n3. Salir")
     opcion = input("Elige una opción: ")
-
     if opcion == "1":
         mostrar_tareas()
     elif opcion == "2":
@@ -141,13 +96,11 @@ while opcion != "3":
         print("Opción no válida.")
 </textarea><button class="run-button" onclick="runCode(12)">▶️ Ejecutar</button><div class="output" id="output-12"></div></div>
     </div>
-
     <script>
         let pyodide;
         const editors = {};
-        const totalCodeCells = 12; // Contamos todas las celdas de código.
+        const totalCodeCells = 12;
         const codeMirrorThemes = { light: 'default', dark: 'dracula', 'retro': 'dracula' };
-
         async function main() {
             pyodide = await loadPyodide();
             document.getElementById('loading-message').style.display = 'none';
@@ -161,7 +114,8 @@ while opcion != "3":
             }
         }
         function initializeEditor(id) {
-            const textArea = document.getElementById(`code-${i}`);
+            const textArea = document.getElementById(`code-${id}`); // CORREGIDO: i -> id
+            if (!textArea) return; // Añadida comprobación de seguridad
             const savedCode = localStorage.getItem(`code-content-${id}`);
             if (savedCode) { textArea.value = savedCode; }
             const button = textArea.nextElementSibling;
@@ -178,10 +132,16 @@ while opcion != "3":
             document.documentElement.setAttribute('data-theme', themeName);
             localStorage.setItem('userTheme', themeName);
             const cmTheme = codeMirrorThemes[themeName];
-            for (const id in editors) { editors[id].setOption('theme', cmTheme); }
+            for (const id in editors) {
+                if (editors[id]) editors[id].setOption('theme', cmTheme);
+            }
         }
         async function runCode(id) {
             const outputElement = document.getElementById(`output-${id}`);
+            if (!editors[id]) { // CORRECCIÓN: Comprobar si el editor existe
+                outputElement.innerText = "Error: El editor no se inicializó correctamente.";
+                return;
+            }
             const code = editors[id].getValue();
             outputElement.innerText = "Ejecutando...";
             if (code.includes("input(")) {
@@ -193,7 +153,9 @@ while opcion != "3":
                 outputElement.innerText = "";
                 await pyodide.runPythonAsync(code);
                 if (outputElement.innerText.trim() === "") { outputElement.innerText = "✅ Ejecutado con éxito (sin salida de texto)"; }
-            } catch (err) { outputElement.innerText = err; }
+            } catch (err) {
+                outputElement.innerText = err;
+            }
         }
         main();
     </script>
