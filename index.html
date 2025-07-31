@@ -49,38 +49,77 @@
     <div id="loading-message"><p>⏳ Cargando el entorno interactivo de Python...</p></div>
 
     <div id="content" style="display:none;">
-        <div class="cell"><h2 id="leccion-1">1. Variables</h2><p>Lección sobre variables...</p></div>
-        <div class="cell code-cell"><textarea id="code-1">print("¡Hola, Mundo!")</textarea><button class="run-button" onclick="runCode(1)">▶️ Ejecutar</button><div class="output" id="output-1"></div></div>
+        <div class="cell" id="leccion-1">
+            <h2>1. Variables y `print()`</h2>
+            <p>Una <b>variable</b> es un nombre para guardar un valor. La función <code>print()</code> muestra valores en pantalla.</p>
+        </div>
+        <div class="cell code-cell"><textarea id="code-1">nombre_curso = "Fundamentos de Python"; print(nombre_curso)</textarea><button class="run-button" onclick="runCode(1)">▶️ Ejecutar</button><div class="output" id="output-1"></div></div>
+
+        <div class="cell" id="leccion-2">
+            <h2>2. Tipos de Datos</h2>
+            <p>Los datos pueden ser de tipo <code>str</code> (texto), <code>int</code> (entero), <code>float</code> (decimal) o <code>bool</code> (True/False).</p>
+        </div>
+        <div class="cell code-cell"><textarea id="code-2">print(type("texto")); print(type(100)); print(type(9.5)); print(type(True))</textarea><button class="run-button" onclick="runCode(2)">▶️ Ejecutar</button><div class="output" id="output-2"></div></div>
         
-        <div class="cell"><h2 id="leccion-2">2. Tipos de Datos</h2><p>Lección sobre tipos...</p></div>
-        <div class="cell code-cell"><textarea id="code-2">print(type("texto"))</textarea><button class="run-button" onclick="runCode(2)">▶️ Ejecutar</button><div class="output" id="output-2"></div></div>
+        <div class="cell" id="leccion-3">
+            <h2>3. Operadores</h2>
+            <p>Permiten hacer cálculos (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>//</code>, <code>%</code>) y comparaciones (<code>==</code>, <code>></code>).</p>
+        </div>
+        <div class="cell code-cell"><textarea id="code-3"># División entera y módulo
+print("10 dividido entre 3 (división entera) es:", 10 // 3)
+print("El resto de 10 dividido entre 3 es:", 10 % 3)</textarea><button class="run-button" onclick="runCode(3)">▶️ Ejecutar</button><div class="output" id="output-3"></div></div>
+
+        <div class="cell" id="leccion-4">
+            <h2>4. Listas</h2>
+            <p>Son colecciones ordenadas de datos que se crean con <code>[]</code>. Se accede por su índice (posición) empezando en 0.</p>
+        </div>
+        <div class="cell code-cell"><textarea id="code-4">mi_lista = ["Manzanas", "Peras", "Naranjas"]; print(mi_lista[1]) # Imprime "Peras"</textarea><button class="run-button" onclick="runCode(4)">▶️ Ejecutar</button><div class="output" id="output-4"></div></div>
+
+        <div class="cell" id="leccion-5">
+            <h2>5. Condicionales (`if`, `else`)</h2>
+            <p>Permiten que el código tome decisiones y siga un camino u otro.</p>
+        </div>
+        <div class="cell code-cell"><textarea id="code-5">edad = 18; if edad >= 18: print("Es mayor de edad.")</textarea><button class="run-button" onclick="runCode(5)">▶️ Ejecutar</button><div class="output" id="output-5"></div></div>
+
+        <div class="cell" id="leccion-6">
+            <h2>6. Bucles (`for` y `while`)</h2>
+            <p>Sirven para repetir tareas sobre una lista (<code>for</code>) o mientras se cumpla una condición (<code>while</code>).</p>
+        </div>
+        <div class="cell code-cell"><textarea id="code-6">for fruta in ["Manzana", "Pera"]: print("Me gusta la", fruta)</textarea><button class="run-button" onclick="runCode(6)">▶️ Ejecutar</button><div class="output" id="output-6"></div></div>
+
+        <div class="cell" id="leccion-7">
+            <h2>7. Funciones (`def`)</h2>
+            <p>Permiten crear bloques de código reutilizables para no repetirnos.</p>
+        </div>
+        <div class="cell code-cell"><textarea id="code-7">def saludar(nombre): print("Hola,", nombre); saludar("Mundo")</textarea><button class="run-button" onclick="runCode(7)">▶️ Ejecutar</button><div class="output" id="output-7"></div></div>
+
+        <div class="cell" id="leccion-8">
+            <h2>8. Diccionarios</h2>
+            <p>Son colecciones para guardar datos con pares <code>clave: valor</code>. Se crean con <code>{}</code>.</p>
+        </div>
+        <div class="cell code-cell"><textarea id="code-8">persona = {"nombre": "Ana", "edad": 30}; print(persona["nombre"])</textarea><button class="run-button" onclick="runCode(8)">▶️ Ejecutar</button><div class="output" id="output-8"></div></div>
         
-        <div class="cell"><h2 id="leccion-3">3. Operadores</h2><p>Lección sobre operadores...</p></div>
-        <div class="cell code-cell"><textarea id="code-3">print(10 // 3)</textarea><button class="run-button" onclick="runCode(3)">▶️ Ejecutar</button><div class="output" id="output-3"></div></div>
-
-        <div class="cell"><h2 id="leccion-4">4. Listas</h2><p>Lección sobre listas...</p></div>
-        <div class="cell code-cell"><textarea id="code-4">mi_lista = [1, 2, 3]; print(mi_lista[0])</textarea><button class="run-button" onclick="runCode(4)">▶️ Ejecutar</button><div class="output" id="output-4"></div></div>
-
-        <div class="cell"><h2 id="leccion-5">5. Condicionales</h2><p>Lección sobre condicionales...</p></div>
-        <div class="cell code-cell"><textarea id="code-5">if 5 > 3: print("Es mayor")</textarea><button class="run-button" onclick="runCode(5)">▶️ Ejecutar</button><div class="output" id="output-5"></div></div>
-
-        <div class="cell"><h2 id="leccion-6">6. Bucles</h2><p>Lección sobre bucles...</p></div>
-        <div class="cell code-cell"><textarea id="code-6">for i in [1, 2, 3]: print(i)</textarea><button class="run-button" onclick="runCode(6)">▶️ Ejecutar</button><div class="output" id="output-6"></div></div>
-
-        <div class="cell"><h2 id="leccion-7">7. Funciones</h2><p>Lección sobre funciones...</p></div>
-        <div class="cell code-cell"><textarea id="code-7">def mi_funcion(): print("Hola"); mi_funcion()</textarea><button class="run-button" onclick="runCode(7)">▶️ Ejecutar</button><div class="output" id="output-7"></div></div>
-
-        <div class="cell"><h2 id="leccion-8">8. Diccionarios</h2><p>Lección sobre diccionarios...</p></div>
-        <div class="cell code-cell"><textarea id="code-8">mi_dic = {"clave": "valor"}; print(mi_dic["clave"])</textarea><button class="run-button" onclick="runCode(8)">▶️ Ejecutar</button><div class="output" id="output-8"></div></div>
-        
-        <div class="cell"><h2 id="leccion-9">9. Combinar Estructuras</h2><p>Aquí combinamos listas y diccionarios.</p></div>
-        <div class="cell code-cell"><textarea id="code-9">usuarios = [{"nombre": "Andrés"}]; print(usuarios[0]["nombre"])</textarea><button class="run-button" onclick="runCode(9)">▶️ Ejecutar</button><div class="output" id="output-9"></div></div>
+        <div class="cell" id="leccion-9">
+            <h2>9. Combinar Listas y Diccionarios</h2>
+            <p>La estructura más común: una lista donde cada elemento es un diccionario.</p>
+        </div>
+        <div class.cell code-cell">
+            <textarea id="code-9"># Lista de diccionarios
+usuarios = [
+    { "id": 1, "nombre": "Ana", "edad": 28 },
+    { "id": 2, "nombre": "Carlos", "edad": 45 }
+]
+# Accedemos al nombre del segundo usuario
+print(usuarios[1]["nombre"])</textarea>
+            <button class="run-button" onclick="runCode(9)">▶️ Ejecutar</button>
+            <div class="output" id="output-9"></div>
+        </div>
     </div>
 
     <script>
         let pyodide;
         const editors = {};
-        const totalCodeCells = 9; // El número total de celdas con código
+        const totalCodeCells = 9;
         const codeMirrorThemes = { light: 'default', dark: 'dracula', retro: 'dracula' };
         
         async function main() {
