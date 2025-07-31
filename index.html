@@ -13,36 +13,36 @@
         [data-theme="dark"] { --bg-color: #121212; --text-color: #e0e0e0; --cell-bg-color: #1e1e1e; --cell-border-color: #333; --header-border-color: #333; --code-bg-color: #333; --output-bg-color: #2a2a2a; --output-border-color: #444; --button-bg-color: #3e8e41; --button-hover-bg-color: #50b154; --explanation-bg: #2c2c2c; }
         [data-theme="retro"] { --bg-color: #000000; --text-color: #00ff00; --cell-bg-color: #0d0d0d; --cell-border-color: #00ff00; --header-border-color: #00ff00; --code-bg-color: #1a1a1a; --output-bg-color: #111; --output-border-color: #008f00; --button-bg-color: #008f00; --button-hover-bg-color: #00ff00; --explanation-bg: #032d03; }
         
-        html { scroll-behavior: smooth; scroll-padding-top: 100px; } /* Añadido smooth y más padding */
+        html { scroll-behavior: smooth; scroll-padding-top: 100px; }/* Añadido smooth y más padding */
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: var(--text-color); background-color: var(--bg-color); max-width: 800px; margin: 20px auto; padding: 0 15px; }
-        
-        /* --- ESTILOS DEL MENÚ ACTUALIZADOS --- */
-        .top-nav {
-            position: sticky;
-            top: 10px; /* Un pequeño margen superior */
-            background-color: var(--cell-bg-color);
-            padding: 10px;
-            border: 1px solid var(--cell-border-color);
-            border-radius: 8px;
-            margin-bottom: 20px;
-            z-index: 100;
-            
-            /* La magia está aquí */
-            display: flex;
-            flex-wrap: nowrap;     /* Evita que los botones salten de línea */
-            overflow-x: auto;      /* Permite el scroll horizontal SI es necesario */
-            -webkit-overflow-scrolling: touch; /* Mejora el scroll en móviles */
-        }
-        .top-nav a {
-            flex-shrink: 0; /* Evita que los botones se encojan */
-            text-decoration: none;
-            color: var(--text-color);
-            background-color: var(--code-bg-color);
-            padding: 5px 12px;
-            border-radius: 5px;
-            margin-right: 10px; /* Espacio entre botones */
-        }
-        /* --- FIN DE LOS ESTILOS DEL MENÚ --- */
+        /* --- NUEVOS ESTILOS PARA EL MENÚ --- */
+.top-nav {
+    position: sticky;
+    top: 10px; /* Un pequeño margen superior */
+    background-color: var(--cell-bg-color);
+    padding: 10px;
+    border: 1px solid var(--cell-border-color);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    z-index: 100;
+    
+    /* La magia para el scroll horizontal */
+    display: flex;
+    flex-wrap: nowrap;     /* Evita que los botones salten de línea */
+    overflow-x: auto;      /* Permite el scroll horizontal SI es necesario */
+    -webkit-overflow-scrolling: touch; /* Mejora el scroll en móviles */
+}
+.top-nav a {
+    flex-shrink: 0; /* Evita que los botones se encojan */
+    text-decoration: none;
+    color: var(--text-color);
+    background-color: var(--code-bg-color);
+    padding: 5px 12px;
+    border-radius: 5px;
+    margin-right: 10px; /* Espacio entre botones */
+}
+/* --- FIN DE LOS NUEVOS ESTILOS --- */
+
 
         .cell { background-color: var(--cell-bg-color); border: 1px solid var(--cell-border-color); border-radius: 8px; margin-bottom: 20px; padding: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .explanation-cell { background-color: var(--explanation-bg); border-left: 4px solid var(--explanation-border); padding: 10px 20px; }
