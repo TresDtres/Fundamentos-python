@@ -59,8 +59,11 @@
         server.registerPlugin(new PyodideKernel());
         server.start().then(() => {
             console.log('JupyterLite cargado correctamente');
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('jupyter-frame').style.display = 'block';
         }).catch(err => {
             console.error('Error al cargar JupyterLite:', err);
+            document.getElementById('loading').innerText = 'Error al cargar el cuaderno. Intenta de nuevo.';
         });
     </script>
     <style>
@@ -107,6 +110,15 @@
         }
         .jp-Toolbar-button:hover {
             background-color: var(--button-hover-bg-color);
+        }
+        #loading {
+            display: block;
+            text-align: center;
+            padding: 20px;
+            background-color: var(--cell-bg-color);
+            border: 1px solid var(--cell-border-color);
+            border-radius: 8px;
+            font-size: 18px;
         }
         :root {
             --bg-color: #f9f9f9;
@@ -184,11 +196,15 @@
             border-radius: 5px;
             margin-top: 10px;
         }
+        .jupyter-lite {
+            position: relative;
+        }
         .jupyter-lite iframe {
             width: 100%;
             height: 500px;
             border: 1px solid var(--cell-border-color);
             border-radius: 8px;
+            display: none;
         }
         .index ul {
             list-style: none;
@@ -259,7 +275,8 @@
         <p>¡Bienvenido al mundo de la programación! Programar es como darle instrucciones a una computadora para que haga cosas por ti, como si fuera una receta de cocina. En esta lección, aprenderás a usar Python para mostrar mensajes en la pantalla con <code>print</code>.</p>
         <p><strong>Ejemplo:</strong> Vamos a hacer que la computadora diga "¡Hola, mundo!". Prueba el siguiente código en el cuaderno de abajo:</p>
         <div class="jupyter-lite">
-            <iframe
+            <div id="loading">Cargando cuaderno interactivo...</div>
+            <iframe id="jupyter-frame"
                 src="https://jupyterlite.github.io/demo/repl/index.html?kernel=python&toolbar=1&code=%23%20Tu%20primer%20programa%20en%20Python%0Aprint(%22%C2%A1Hola%2C%20mundo!%22)%0A%0A%23%20Prueba%20cambiar%20el%20mensaje%0Aprint(%22%C2%A1Bienvenido%20al%20curso%20de%20Python!%22)"
                 width="100%"
                 height="500px"
