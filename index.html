@@ -14,33 +14,27 @@
             --header-border-color: #eaecef; --code-bg-color: #eee; --output-bg-color: #f0f0f0; 
             --output-border-color: #ddd; --button-bg-color: #2c8a30; --button-hover-bg-color: #45a049; 
             --explanation-bg: #f8f9fa; --explanation-border: #4CAF50;
-            --nav-shadow-color: rgba(0, 0, 0, 0.08); /* <-- NUEVA VARIABLE */
+            --nav-shadow-color: rgba(0, 0, 0, 0.08);
         }
         [data-theme="dark"] { 
             --bg-color: #121212; --text-color: #e0e0e0; --cell-bg-color: #1e1e1e; --cell-border-color: #333; 
             --header-border-color: #333; --code-bg-color: #333; --output-bg-color: #2a2a2a; 
             --output-border-color: #444; --button-bg-color: #3e8e41; --button-hover-bg-color: #50b154; 
             --explanation-bg: #2c2c2c;
-            --nav-shadow-color: rgba(0, 0, 0, 0.2); /* <-- NUEVA VARIABLE */
+            --nav-shadow-color: rgba(0, 0, 0, 0.2);
         }
         [data-theme="retro"] { 
             --bg-color: #000000; --text-color: #00ff00; --cell-bg-color: #0d0d0d; --cell-border-color: #00ff00; 
             --header-border-color: #00ff00; --code-bg-color: #1a1a1a; --output-bg-color: #111; 
             --output-border-color: #008f00; --button-bg-color: #008f00; --button-hover-bg-color: #00ff00; 
             --explanation-bg: #032d03;
-            --nav-shadow-color: rgba(0, 255, 0, 0.15); /* <-- NUEVA VARIABLE */
+            --nav-shadow-color: rgba(0, 255, 0, 0.15);
         }
         
         html { scroll-behavior: smooth; scroll-padding-top: 100px; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: var(--text-color); background-color: var(--bg-color); max-width: 800px; margin: 20px auto; padding: 0 15px; }
         
-        .top-nav { 
-            position: sticky; top: 10px; background-color: var(--cell-bg-color); padding: 10px; 
-            border-radius: 8px; margin-bottom: 20px; z-index: 100; 
-            display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
-            border: 1px solid var(--cell-border-color);
-            box-shadow: 0 2px 5px var(--nav-shadow-color); /* <-- LA SOLUCIÓN MÁGICA */
-        }
+        .top-nav { position: sticky; top: 10px; background-color: var(--cell-bg-color); padding: 10px; border-radius: 8px; margin-bottom: 20px; z-index: 100; display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--cell-border-color); box-shadow: 0 2px 5px var(--nav-shadow-color); }
         .top-nav a { flex-shrink: 0; text-decoration: none; color: var(--text-color); background-color: var(--code-bg-color); padding: 5px 12px; border-radius: 5px; margin-right: 10px; }
 
         .cell { background-color: var(--cell-bg-color); border: 1px solid var(--cell-border-color); border-radius: 8px; margin-bottom: 20px; padding: 15px; }
@@ -65,81 +59,85 @@
     <div id="loading-message"><p>⏳ Cargando el entorno interactivo de Python...</p></div>
 
     <div id="content" style="display:none;">
-        <div class="cell" id="leccion-1"><h2>1. Variables y `print()`</h2><p>Lección sobre variables...</p></div>
-        <div class="cell" id="leccion-2"><h2>2. Tipos de Datos</h2><p>Lección sobre tipos de datos...</p></div>
-        <div class="cell" id="leccion-3"><h2>3. Operadores</h2><p>Lección sobre operadores...</p></div>
-        <div class="cell" id="leccion-4"><h2>4. Listas</h2><p>Lección sobre listas...</p></div>
-        <div class="cell" id="leccion-5"><h2>5. Condicionales e Indentación</h2><p>Lección sobre condicionales y la regla de la indentación...</p></div>
+        <div class="cell" id="leccion-1"><h2>1. Variables y `print()`</h2><p>Una <b>variable</b> es un nombre para guardar un valor. La función <code>print()</code> muestra valores en pantalla.</p></div>
+        <div class="cell code-cell"><textarea id="code-1">nombre_curso = "Fundamentos de Python"; print(nombre_curso)</textarea><button class="run-button" onclick="runCode(1)"></button><div class="output" id="output-1"></div></div>
+
+        <div class="cell" id="leccion-2"><h2>2. Tipos de Datos</h2><p>Los datos pueden ser de tipo <code>str</code> (texto), <code>int</code> (entero), <code>float</code> (decimal) o <code>bool</code> (True/False).</p></div>
+        <div class="cell code-cell"><textarea id="code-2">print(type("texto")); print(type(100));</textarea><button class="run-button" onclick="runCode(2)"></button><div class="output" id="output-2"></div></div>
         
-        <div class="cell" id="leccion-6"><h2>6. Bucles</h2><p>Lección sobre bucles...</p></div>
+        <div class="cell" id="leccion-3"><h2>3. Operadores</h2><p>Permiten hacer cálculos y comparaciones.</p></div>
+        <div class="cell code-cell"><textarea id="code-3">print("División entera:", 10 // 3); print("Resto:", 10 % 3)</textarea><button class="run-button" onclick="runCode(3)"></button><div class="output" id="output-3"></div></div>
+
+        <div class="cell" id="leccion-4"><h2>4. Listas</h2><p>Colecciones ordenadas creadas con <code>[]</code>.</p></div>
+        <div class="cell code-cell"><textarea id="code-4">mi_lista = ["Manzanas", "Peras"]; print(mi_lista[1])</textarea><button class="run-button" onclick="runCode(4)"></button><div class="output" id="output-4"></div></div>
         
-        <div class="cell" id="leccion-7"><h2>7. Funciones: Definir vs. Llamar</h2><p>Crear una función es un proceso de dos pasos: 1. Definir (escribir la receta), 2. Llamar (cocinar la receta).</p><h3>Paso 1: Definir la Función</h3></div>
+        <div class="cell" id="leccion-5"><h2>5. Condicionales</h2><p>Toma de decisiones con <code>if</code>.</p></div>
+        <div class="cell code-cell"><textarea id="code-5">edad = 20;
+if edad >= 18:
+    print("Mayor de edad.")</textarea><button class="run-button" onclick="runCode(5)"></button><div class="output" id="output-5"></div></div>
+        <div class="cell explanation-cell"><h3>La Regla de Oro: La Indentación</h3><p>En Python, la <b>indentación</b> es obligatoria y define qué código pertenece a un bloque <code>if</code>, <code>for</code>, etc.</p></div>
+
+        <div class="cell" id="leccion-6"><h2>6. Bucles</h2><p>Repetición con <code>for</code> y <code>while</code>.</p></div>
+        <div class="cell code-cell"><textarea id="code-6">for fruta in ["Manzana", "Pera"]: print(fruta)</textarea><button class="run-button" onclick="runCode(6)"></button><div class="output" id="output-6"></div></div>
+
+        <div class="cell" id="leccion-7"><h2>7. Funciones: Definir vs. Llamar</h2><p>Paso 1: Definir (escribir la receta). Paso 2: Llamar (cocinar la receta).</p><h3>Paso 1: Definir la Función</h3></div>
         <div class="cell code-cell"><textarea id="code-7"># DEFINICIÓN de la receta. Al ejecutar, no hace nada visible.
 def saludar(nombre):
-    print("¡Hola,", nombre, "!")</textarea><button class="run-button" onclick="runCode(7)">▶️ Ejecutar</button><div class="output" id="output-7"></div></div>
+    print("¡Hola,", nombre, "!")</textarea><button class="run-button" onclick="runCode(7)"></button><div class="output" id="output-7"></div></div>
         
         <div class="cell"><h3>Paso 2: Llamar a la Función</h3><p>Ahora que Python conoce la receta, la usamos.</p></div>
         <div class="cell code-cell"><textarea id="code-8"># Esta celda fallará si no has ejecutado la anterior primero.
 saludar("Ana")
-saludar("Carlos")</textarea><button class="run-button" onclick="runCode(8)">▶️ Ejecutar</button><div class="output" id="output-8"></div></div>
+saludar("Carlos")</textarea><button class="run-button" onclick="runCode(8)"></button><div class="output" id="output-8"></div></div>
 
-        <div class="cell" id="leccion-8"><h2>8. Diccionarios</h2><p>Lección sobre diccionarios...</p></div>
-        <div class="cell" id="leccion-9"><h2>9. Combinar Estructuras</h2><p>Lección sobre listas de diccionarios...</p></div>
-        <div class="cell" id="leccion-10"><h2>10. Input del Usuario</h2><p>Lección sobre cómo hacer programas interactivos...</p></div>
+        <div class="cell" id="leccion-8"><h2>8. Diccionarios</h2><p>Colecciones con pares <code>clave: valor</code>.</p></div>
+        <div class="cell code-cell"><textarea id="code-9">persona = {"nombre": "Ana"}; print(persona["nombre"])</textarea><button class="run-button" onclick="runCode(9)"></button><div class="output" id="output-9"></div></div>
+        
+        <div class="cell" id="leccion-9"><h2>9. Combinar Estructuras</h2><p>Listas de diccionarios.</p></div>
+        <div class="cell code-cell"><textarea id="code-10">usuarios = [{"nombre": "Ana"}]; print(usuarios[0]["nombre"])</textarea><button class="run-button" onclick="runCode(10)"></button><div class="output" id="output-10"></div></div>
+
+        <div class="cell" id="leccion-10"><h2>10. Input del Usuario</h2><p>Programas interactivos con <code>input()</code>.</p></div>
+        <div class="cell code-cell"><textarea id="code-11"># edad = int(input("Dime tu edad: ")); print("Tu edad es:", edad)
+print("Ejemplo de input: pide un dato al usuario.")</textarea><button class="run-button" onclick="runCode(11)"></button><div class="output" id="output-11"></div></div>
     </div>
 
     <script>
-        // El script JS sigue igual, pero lo incluyo para que el archivo sea completo.
         let pyodide;
         const editors = {};
-        const codeCells = { 7: `...`, 8: `...` }; // Mapa de celdas de código
-
+        const totalCodeCells = 11;
+        const codeMirrorThemes = { light: 'default', dark: 'dracula', retro: 'dracula' };
+        
         async function main() {
-            const contentDiv = document.getElementById('content');
-            contentDiv.innerHTML = `
-                <div class="cell" id="leccion-1"><h2>1. Variables y \`print()\`</h2>...</div><div class="cell code-cell"><textarea id="code-1">print("Hola")</textarea>...</div>
-                <div class="cell" id="leccion-2"><h2>2. Tipos de Datos</h2>...</div><div class="cell code-cell"><textarea id="code-2">print(type(1))</textarea>...</div>
-                <div class="cell" id="leccion-3"><h2>3. Operadores</h2>...</div><div class="cell code-cell"><textarea id="code-3">print(5+5)</textarea>...</div>
-                <div class="cell" id="leccion-4"><h2>4. Listas</h2>...</div><div class="cell code-cell"><textarea id="code-4">print([1,2])</textarea>...</div>
-                <div class="cell" id="leccion-5"><h2>5. Condicionales</h2>...</div><div class="cell code-cell"><textarea id="code-5">if True: print("Ok")</textarea>...</div>
-                <div class="cell explanation-cell"><h3>La Regla de Oro: La Indentación</h3>...</div>
-                <div class="cell" id="leccion-6"><h2>6. Bucles</h2>...</div><div class="cell code-cell"><textarea id="code-6">for i in [1]: print(i)</textarea>...</div>
-                <div class="cell" id="leccion-7"><h2>7. Funciones: Definir vs. Llamar</h2>...<h3>Paso 1: Definir la Función</h3></div>
-                <div class="cell code-cell"><textarea id="code-7">def saludar(nombre): print("¡Hola,", nombre, "!")</textarea><button class="run-button" onclick="runCode(7)"></button><div class="output" id="output-7"></div></div>
-                <div class="cell"><h3>Paso 2: Llamar a la Función</h3>...</div>
-                <div class="cell code-cell"><textarea id="code-8">saludar("Ana")</textarea><button class="run-button" onclick="runCode(8)"></button><div class="output" id="output-8"></div></div>
-                <div class="cell" id="leccion-8"><h2>8. Diccionarios</h2>...</div><div class="cell code-cell"><textarea id="code-9">print({"a":1})</textarea>...</div>
-                <div class="cell" id="leccion-9"><h2>9. Combinar Estructuras</h2>...</div><div class="cell code-cell"><textarea id="code-10">print([{"a":1}])</textarea>...</div>
-                <div class="cell" id="leccion-10"><h2>10. Input</h2>...</div><div class="cell code-cell"><textarea id="code-11"># input() deshabilitado en este ejemplo</textarea>...</div>
-            `;
-            
             pyodide = await loadPyodide();
             document.getElementById('loading-message').style.display = 'none';
             document.getElementById('content').style.display = 'block';
             const savedTheme = localStorage.getItem('userTheme') || 'light';
             setTheme(savedTheme);
-            const totalCodeCells = 11;
-            for (let i = 1; i <= totalCodeCells; i++) { if(document.getElementById(`code-${i}`)) { initializeEditor(i); } }
+            for (let i = 1; i <= totalCodeCells; i++) {
+                if(document.getElementById(`code-${i}`)) {
+                    initializeEditor(i); 
+                }
+            }
         }
-        function initializeEditor(id) { /*...*/ }
-        function setTheme(themeName) { /*...*/ }
-        function runCode(id) { /*...*/ }
-
-        // Placeholder para el resto del JS que ya tienes
         function initializeEditor(id) {
             const textArea = document.getElementById(`code-${id}`);
             const savedCode = localStorage.getItem(`code-content-${id}`);
             if (savedCode) { textArea.value = savedCode; }
+            // Rellenar el botón de ejecutar
+            const button = textArea.nextElementSibling;
+            if(button && button.classList.contains('run-button')) {
+                button.innerHTML = '▶️ Ejecutar';
+            }
             editors[id] = CodeMirror.fromTextArea(textArea, {
                 mode: 'python', lineNumbers: true, indentUnit: 4,
-                theme: 'default'
+                theme: codeMirrorThemes[localStorage.getItem('userTheme') || 'light']
             });
             editors[id].on('change', (editor) => { localStorage.setItem(`code-content-${id}`, editor.getValue()); });
         }
         function setTheme(themeName) {
             document.documentElement.setAttribute('data-theme', themeName);
             localStorage.setItem('userTheme', themeName);
-            const cmTheme = (themeName === "dark" || themeName === "retro") ? 'dracula' : 'default';
+            const cmTheme = codeMirrorThemes[themeName];
             for (const id in editors) { editors[id].setOption('theme', cmTheme); }
         }
         async function runCode(id) {
