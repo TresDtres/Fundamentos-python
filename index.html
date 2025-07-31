@@ -229,13 +229,14 @@
                 document.getElementById('completion-message').style.display = 'block';
                 document.getElementById('complete-button').style.display = 'none';
             }
-            // Verificación básica del iframe
-            setTimeout(() => {
-                const iframe = document.querySelector('.jupyter-lite iframe');
-                if (!iframe.contentDocument || iframe.contentDocument.readyState !== 'complete') {
-                    document.getElementById('error-message').style.display = 'block';
-                }
-            }, 5000); // 5 segundos de espera
+            // Verificación con evento onload del iframe
+            const iframe = document.querySelector('.jupyter-lite iframe');
+            iframe.onload = () => {
+                document.getElementById('error-message').style.display = 'none'; // Oculta el mensaje si carga
+            };
+            iframe.onerror = () => {
+                document.getElementById('error-message').style.display = 'block'; // Muestra el mensaje si falla
+            };
         };
         function showHint() {
             document.getElementById('hint').style.display = 'block';
