@@ -12,16 +12,20 @@
         :root { --bg-color: #f9f9f9; --text-color: #333; --cell-bg-color: white; --cell-border-color: #e0e0e0; --header-border-color: #eaecef; --code-bg-color: #eee; --output-bg-color: #f0f0f0; --output-border-color: #ddd; --button-bg-color: #2c8a30; --button-hover-bg-color: #45a049; --explanation-bg: #f8f9fa; --explanation-border: #4CAF50; }
         [data-theme="dark"] { --bg-color: #121212; --text-color: #e0e0e0; --cell-bg-color: #1e1e1e; --cell-border-color: #333; --header-border-color: #333; --code-bg-color: #333; --output-bg-color: #2a2a2a; --output-border-color: #444; --button-bg-color: #3e8e41; --button-hover-bg-color: #50b154; --explanation-bg: #2c2c2c; }
         [data-theme="retro"] { --bg-color: #000000; --text-color: #00ff00; --cell-bg-color: #0d0d0d; --cell-border-color: #00ff00; --header-border-color: #00ff00; --code-bg-color: #1a1a1a; --output-bg-color: #111; --output-border-color: #008f00; --button-bg-color: #008f00; --button-hover-bg-color: #00ff00; --explanation-bg: #032d03; }
-        html { scroll-padding-top: 80px; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: var(--text-color); background-color: var(--bg-color); max-width: 800px; margin: 20px auto; padding: 20px 15px; }
-        .top-nav { position: sticky; top: 0; background-color: var(--cell-bg-color); padding: 10px; border: 1px solid var(--cell-border-color); border-radius: 8px; margin-bottom: 20px; z-index: 100; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-        .top-nav a { text-decoration: none; color: var(--text-color); background-color: var(--code-bg-color); padding: 5px 10px; border-radius: 5px; }
+        
+        html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: var(--text-color); background-color: var(--bg-color); max-width: 800px; margin: 20px auto; padding: 0 15px; }
+        
+        .top-nav { position: sticky; top: 10px; background-color: var(--cell-bg-color); padding: 10px; border: 1px solid var(--cell-border-color); border-radius: 8px; margin-bottom: 20px; z-index: 100; display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .top-nav a { flex-shrink: 0; text-decoration: none; color: var(--text-color); background-color: var(--code-bg-color); padding: 5px 12px; border-radius: 5px; margin-right: 10px; }
+
         .cell { background-color: var(--cell-bg-color); border: 1px solid var(--cell-border-color); border-radius: 8px; margin-bottom: 20px; padding: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .explanation-cell { background-color: var(--explanation-bg); border-left: 4px solid var(--explanation-border); padding: 10px 20px; }
         h1, h2, h3 { border-bottom: 1px solid var(--header-border-color); padding-bottom: 0.3em; }
         .run-button { color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; background-color: var(--button-bg-color); padding: 8px 15px; margin-bottom: 10px; }
         .output { background-color: var(--output-bg-color); padding: 10px; border-radius: 5px; white-space: pre-wrap; font-family: "Courier New", Courier, monospace; min-height: 20px; margin-top: 10px; border: 1px solid var(--output-border-color); }
         code { background-color: var(--code-bg-color); color: var(--text-color); padding: 2px 4px; border-radius: 3px; }
+        #loading-message { text-align: center; padding: 20px; font-style: italic; }
     </style>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.js"></script>
@@ -31,7 +35,11 @@
 <body>
     <nav class="top-nav">
         <a href="#leccion-1">1. Variables</a>
+        <a href="#leccion-2">2. Tipos</a>
+        <a href="#leccion-3">3. Operadores</a>
         <a href="#leccion-4">4. Listas</a>
+        <a href="#leccion-5">5. Condicionales</a>
+        <a href="#leccion-6">6. Bucles</a>
         <a href="#leccion-7">7. Funciones</a>
         <a href="#leccion-8">8. Diccionarios</a>
         <a href="#leccion-9">9. Combinar</a>
@@ -41,85 +49,40 @@
     <div id="loading-message"><p>⏳ Cargando el entorno interactivo de Python...</p></div>
 
     <div id="content" style="display:none;">
-        <div class="cell"><h2 id="leccion-1">1-6. Fundamentos</h2><p>Estas lecciones cubren los tipos de datos, operadores, condicionales y bucles.</p></div>
-        <div class="cell"><h2 id="leccion-7">7. Funciones (`def`)</h2><p>Permiten crear bloques de código reutilizables para no repetirnos.</p></div>
-        <div class="cell"><h2 id="leccion-8">8. Diccionarios</h2><p>Son colecciones para guardar datos con pares <code>clave: valor</code>. Se crean con <code>{}</code>.</p></div>
+        <div class="cell"><h2 id="leccion-1">1. Variables</h2><p>Lección sobre variables...</p></div>
+        <div class="cell code-cell"><textarea id="code-1">print("¡Hola, Mundo!")</textarea><button class="run-button" onclick="runCode(1)">▶️ Ejecutar</button><div class="output" id="output-1"></div></div>
         
-        <!-- INICIO DE LA NUEVA LECCIÓN -->
-        <div class="cell">
-            <h2 id="leccion-9">9. ¡Combinando Listas y Diccionarios!</h2>
-            <p>Este es uno de los conceptos más importantes. En programas reales, los datos rara vez son simples. A menudo, tendrás una <b>lista de diccionarios</b>.</p>
-            <p>Imagina una lista de usuarios. Cada usuario es un diccionario con sus propios datos.</p>
-        </div>
-        <div class="cell code-cell">
-            <textarea id="code-1"># Una lista donde cada elemento es un diccionario
-usuarios = [
-    { "id": 1, "nombre": "Ana", "edad": 28 },
-    { "id": 2, "nombre": "Carlos", "edad": 45 },
-    { "id": 3, "nombre": "Beatriz", "edad": 22 }
-]
+        <div class="cell"><h2 id="leccion-2">2. Tipos de Datos</h2><p>Lección sobre tipos...</p></div>
+        <div class="cell code-cell"><textarea id="code-2">print(type("texto"))</textarea><button class="run-button" onclick="runCode(2)">▶️ Ejecutar</button><div class="output" id="output-2"></div></div>
+        
+        <div class="cell"><h2 id="leccion-3">3. Operadores</h2><p>Lección sobre operadores...</p></div>
+        <div class="cell code-cell"><textarea id="code-3">print(10 // 3)</textarea><button class="run-button" onclick="runCode(3)">▶️ Ejecutar</button><div class="output" id="output-3"></div></div>
 
-# Acceder al nombre del segundo usuario (índice 1)
-nombre_carlos = usuarios[1]["nombre"]
-print("El segundo usuario es:", nombre_carlos)
+        <div class="cell"><h2 id="leccion-4">4. Listas</h2><p>Lección sobre listas...</p></div>
+        <div class="cell code-cell"><textarea id="code-4">mi_lista = [1, 2, 3]; print(mi_lista[0])</textarea><button class="run-button" onclick="runCode(4)">▶️ Ejecutar</button><div class="output" id="output-4"></div></div>
 
-# Recorrer la lista para encontrar a todos los mayores de 25
-print("\nBuscando usuarios mayores de 25 años:")
-for usuario in usuarios:
-    # 'usuario' es un diccionario en cada repetición
-    if usuario["edad"] > 25:
-        print("-", usuario["nombre"], "tiene", usuario["edad"], "años.")
-</textarea>
-            <button class="run-button" onclick="runCode(1)">▶️ Ejecutar</button>
-            <div class="output" id="output-1"></div>
-        </div>
-        <div class="cell explanation-cell">
-            <h3>🔍 Desglose del Código</h3>
-            <ol>
-                <li><code><b>usuarios = [ ... ]</b></code>: Creamos una lista normal con corchetes <code>[]</code>. La única diferencia es que cada elemento que ponemos dentro es un diccionario completo <code>{...}</code>.</li>
-                <li><code><b>usuarios[1]["nombre"]</b></code>: ¡Esta es la sintaxis clave! La desglosamos de izquierda a derecha:
-                    <ul>
-                        <li><code>usuarios[1]</code>: Primero, accedemos al segundo elemento de la lista. Esto nos devuelve el diccionario entero: <code>{ "id": 2, "nombre": "Carlos", "edad": 45 }</code>.</li>
-                        <li><code><b>...["nombre"]</b></code>: Sobre ese diccionario que hemos obtenido, ahora accedemos al valor asociado a la clave <code>"nombre"</code>. El resultado es "Carlos".</li>
-                    </ul>
-                </li>
-                <li><code><b>for usuario in usuarios:</b></code>: Al recorrer la lista, la variable temporal <code>usuario</code> contendrá un diccionario completo en cada pasada. Por eso, dentro del bucle, podemos usar <code>usuario["edad"]</code> y <code>usuario["nombre"]</code> para acceder a sus datos.</li>
-            </ol>
-        </div>
-        <div class="cell">
-            <h3>🎯 Mini reto: Inventario de una Tienda</h3>
-            <p>Has sido contratado para gestionar el inventario de una tienda de videojuegos. Crea una lista de diccionarios llamada <code>inventario</code>.</p>
-            <p>Cada diccionario debe representar un producto y tener las claves: <code>"titulo"</code> (texto), <code>"precio"</code> (número) y <code>"stock"</code> (número de unidades).</p>
-            <p>Luego, recorre el inventario con un bucle e imprime solo los títulos de los juegos que cuesten <b>menos de 30</b>.</p>
-        </div>
-        <div class="cell code-cell">
-            <textarea id="code-2"># Crea tu lista de diccionarios aquí
-inventario = [
-    { "titulo": "Aventura Espacial", "precio": 49.99, "stock": 15 },
-    { "titulo": "Puzles de la Jungla", "precio": 19.95, "stock": 30 },
-    { "titulo": "Carreras Urbanas", "precio": 25.50, "stock": 5 }
-]
+        <div class="cell"><h2 id="leccion-5">5. Condicionales</h2><p>Lección sobre condicionales...</p></div>
+        <div class="cell code-cell"><textarea id="code-5">if 5 > 3: print("Es mayor")</textarea><button class="run-button" onclick="runCode(5)">▶️ Ejecutar</button><div class="output" id="output-5"></div></div>
 
-print("Juegos en oferta (menos de 30€):")
-# Recorre el inventario con un bucle
-for juego in inventario:
-    # Dentro del bucle, comprueba el precio del juego
-    if juego["precio"] < 30:
-        # Si cumple la condición, imprime su título
-        print("-", juego["titulo"])
-</textarea>
-            <button class="run-button" onclick="runCode(2)">▶️ Ejecutar</button>
-            <div class="output" id="output-2"></div>
-        </div>
+        <div class="cell"><h2 id="leccion-6">6. Bucles</h2><p>Lección sobre bucles...</p></div>
+        <div class="cell code-cell"><textarea id="code-6">for i in [1, 2, 3]: print(i)</textarea><button class="run-button" onclick="runCode(6)">▶️ Ejecutar</button><div class="output" id="output-6"></div></div>
+
+        <div class="cell"><h2 id="leccion-7">7. Funciones</h2><p>Lección sobre funciones...</p></div>
+        <div class="cell code-cell"><textarea id="code-7">def mi_funcion(): print("Hola"); mi_funcion()</textarea><button class="run-button" onclick="runCode(7)">▶️ Ejecutar</button><div class="output" id="output-7"></div></div>
+
+        <div class="cell"><h2 id="leccion-8">8. Diccionarios</h2><p>Lección sobre diccionarios...</p></div>
+        <div class="cell code-cell"><textarea id="code-8">mi_dic = {"clave": "valor"}; print(mi_dic["clave"])</textarea><button class="run-button" onclick="runCode(8)">▶️ Ejecutar</button><div class="output" id="output-8"></div></div>
+        
+        <div class="cell"><h2 id="leccion-9">9. Combinar Estructuras</h2><p>Aquí combinamos listas y diccionarios.</p></div>
+        <div class="cell code-cell"><textarea id="code-9">usuarios = [{"nombre": "Andrés"}]; print(usuarios[0]["nombre"])</textarea><button class="run-button" onclick="runCode(9)">▶️ Ejecutar</button><div class="output" id="output-9"></div></div>
     </div>
 
     <script>
         let pyodide;
         const editors = {};
-        const totalCodeCells = 2; // Actualizado para esta sección
+        const totalCodeCells = 9; // El número total de celdas con código
         const codeMirrorThemes = { light: 'default', dark: 'dracula', retro: 'dracula' };
         
-        // El script de JS se mantiene igual
         async function main() {
             pyodide = await loadPyodide();
             document.getElementById('loading-message').style.display = 'none';
@@ -154,23 +117,13 @@ for juego in inventario:
                 pyodide.setStdout({ batched: (msg) => { outputElement.innerText = (outputElement.innerText === "Ejecutando..." ? "" : outputElement.innerText) + msg + "\n"; }});
                 pyodide.setStderr({ batched: (msg) => { outputElement.innerText = (outputElement.innerText === "Ejecutando..." ? "" : outputElement.innerText) + msg + "\n"; }});
                 outputElement.innerText = "";
-                const pyodideGlobals = pyodide.globals.get("dict")();
-                await pyodide.runPythonAsync(code, { globals: pyodideGlobals });
+                await pyodide.runPythonAsync(code);
                 if (outputElement.innerText.trim() === "") { outputElement.innerText = "✅ Ejecutado con éxito (sin salida de texto)"; }
-                pyodideGlobals.destroy();
             } catch (err) {
                 outputElement.innerText = err;
             }
         }
-        // Colapsé las lecciones anteriores en el HTML.
-        // Un pequeño hack para que el guardado de celdas antiguas no se pierda.
-        function hackyInitializeOldCells() {
-            const oldCellIds = [1,2,3,4,5,6,7,8];
-            for(const id of oldCellIds) { if(localStorage.getItem(`code-content-${id}`)){/*noop*/} }
-        }
-        hackyInitializeOldCells();
         main();
     </script>
 </body>
-</html>
 </html>
