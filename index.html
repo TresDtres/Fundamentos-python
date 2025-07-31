@@ -42,6 +42,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Evita modo Quirks -->
     <title>Curso Interactivo de Python</title>
     <!-- Importamos JupyterLite con versiones actualizadas -->
     <script type="importmap">
@@ -59,9 +60,12 @@
         server.registerPlugin(new PyodideKernel());
         server.start().then(() => {
             console.log('JupyterLite cargado correctamente');
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('jupyter-frame').style.display = 'block';
         }).catch(err => {
             console.error('Error al cargar JupyterLite:', err);
             document.getElementById('error-message').style.display = 'block';
+            document.getElementById('loading').style.display = 'none';
         });
     </script>
     <style>
@@ -109,15 +113,22 @@
         .jp-Toolbar-button:hover {
             background-color: var(--button-hover-bg-color);
         }
-        #error-message {
+        #loading, #error-message {
             display: none;
             text-align: center;
             padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        #loading {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            color: #333;
+        }
+        #error-message {
             background-color: #ffebee;
             border: 1px solid #ef9a9a;
-            border-radius: 8px;
             color: #c62828;
-            margin-bottom: 20px;
         }
         :root {
             --bg-color: #f9f9f9;
@@ -195,11 +206,15 @@
             border-radius: 5px;
             margin-top: 10px;
         }
-        .jupyter-lite iframe {
+        .jupyter-lite {
+            position: relative;
+        }
+        .jupyter-lite #jupyter-frame {
             width: 100%;
             height: 500px;
             border: 1px solid var(--cell-border-color);
             border-radius: 8px;
+            display: none;
         }
         .index ul {
             list-style: none;
@@ -230,12 +245,14 @@
                 document.getElementById('complete-button').style.display = 'none';
             }
             // Verificación con evento onload del iframe
-            const iframe = document.querySelector('.jupyter-lite iframe');
+            const iframe = document.getElementById('jupyter-frame');
             iframe.onload = () => {
-                document.getElementById('error-message').style.display = 'none'; // Oculta el mensaje si carga
+                document.getElementById('loading').style.display = 'none';
+                iframe.style.display = 'block';
             };
             iframe.onerror = () => {
-                document.getElementById('error-message').style.display = 'block'; // Muestra el mensaje si falla
+                document.getElementById('error-message').style.display = 'block';
+                document.getElementById('loading').style.display = 'none';
             };
         };
         function showHint() {
@@ -277,9 +294,10 @@
         <h2>Lección 1: Introducción a Python y primeros pasos</h2>
         <p>¡Bienvenido al mundo de la programación! Programar es como darle instrucciones a una computadora para que haga cosas por ti, como si fuera una receta de cocina. En esta lección, aprenderás a usar Python para mostrar mensajes en la pantalla con <code>print</code>.</p>
         <p><strong>Ejemplo:</strong> Vamos a hacer que la computadora diga "¡Hola, mundo!". Prueba el siguiente código en el cuaderno de abajo:</p>
+        <div id="loading">Cargando cuaderno interactivo...</div>
         <div id="error-message">Error: No se pudo cargar el cuaderno interactivo. Puede ser un problema temporal con el servidor. Intenta de nuevo más tarde.</div>
         <div class="jupyter-lite">
-            <iframe
+            <iframe id="jupyter-frame"
                 src="https://jupyterlite.github.io/demo/repl/index.html?kernel=python&toolbar=1&code=%23%20Tu%20primer%20programa%20en%20Python%0Aprint(%22%C2%A1Hola%2C%20mundo!%22)%0A%0A%23%20Prueba%20cambiar%20el%20mensaje%0Aprint(%22%C2%A1Bienvenido%20al%20curso%20de%20Python!%22)"
                 width="100%"
                 height="500px"
