@@ -65,6 +65,26 @@
     </script>
     <link rel="stylesheet" href="https://unpkg.com/@jupyterlite/app@0.5.0/style.css" crossorigin="anonymous">
     <style>
+        /* Fallback CSS si el enlace falla */
+        .jp-Notebook {
+            font-family: Arial, sans-serif;
+            background-color: var(--cell-bg-color);
+            border: 1px solid var(--cell-border-color);
+            border-radius: 8px;
+        }
+        .jp-Cell {
+            margin: 10px 0;
+            padding: 10px;
+        }
+        .jp-InputArea {
+            background-color: #f5f5f5;
+            padding: 5px;
+        }
+        .jp-OutputArea {
+            margin-top: 10px;
+            padding: 5px;
+            background-color: #e9ecef;
+        }
         :root {
             --bg-color: #f9f9f9;
             --text-color: #333;
